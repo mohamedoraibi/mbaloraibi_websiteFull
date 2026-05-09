@@ -1,0 +1,12 @@
+import { baseUrl } from './seo'
+import { services, site, faqs, Locale, localePath, courses } from './i18n'
+
+export const jsonLd = (data: object) => <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+
+export function personSchema() { return { '@context':'https://schema.org', '@type':'Person', name:'Mohammed Al Oraibi', jobTitle:'Software Engineer, Technical Consultant, Content Creator', url:baseUrl(), sameAs:site.socials.map(s=>s.url), knowsAbout:['Software Engineering','Web Development','Automation','AI Tools','Technical Consulting','Programming Education','Digital Solutions'] } }
+export function websiteSchema(locale: Locale) { return { '@context':'https://schema.org','@type':'WebSite', name: locale === 'ar' ? site.arabicName : site.name, url: `${baseUrl()}${localePath(locale,'/')}`, inLanguage: locale } }
+export function professionalServiceSchema(locale: Locale) { return { '@context':'https://schema.org','@type':'ProfessionalService', name: locale === 'ar' ? site.arabicName : site.name, url: `${baseUrl()}${localePath(locale,'/')}`, areaServed:'Remote, GCC, Worldwide', serviceType: services.map(s=>s.title[locale]), availableChannel:{'@type':'ServiceChannel', serviceUrl:`${baseUrl()}${localePath(locale,'/contact')}`}, contactPoint:{'@type':'ContactPoint', email:site.email, contactType:'customer support'} } }
+export function serviceSchema(slug: string, locale: Locale) { const s = services.find(x=>x.slug===slug); return s && { '@context':'https://schema.org','@type':'Service', name:s.title[locale], description:s.short[locale], provider:{'@type':'Person', name:'Mohammed Al Oraibi'}, url:`${baseUrl()}${localePath(locale,`/services/${slug}`)}` } }
+export function faqSchema(locale: Locale) { return { '@context':'https://schema.org','@type':'FAQPage', mainEntity: faqs[locale].map(([q,a])=>({'@type':'Question', name:q, acceptedAnswer:{'@type':'Answer', text:a}})) } }
+export function courseSchema(locale: Locale) { return { '@context':'https://schema.org','@type':'ItemList', itemListElement: courses.map((c,i)=>({'@type':'Course', position:i+1, name:c.title[locale], description:c.description[locale], provider:{'@type':'Person', name:'Mohammed Al Oraibi'}})) } }
+export function breadcrumbSchema(items: {name:string; url:string}[]) { return { '@context':'https://schema.org','@type':'BreadcrumbList', itemListElement: items.map((item,i)=>({'@type':'ListItem', position:i+1, name:item.name, item:item.url})) } }
