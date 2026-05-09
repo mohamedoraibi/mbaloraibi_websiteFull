@@ -1,0 +1,4 @@
+import type { MetadataRoute } from 'next'
+import { baseUrl } from '@/lib/seo'
+import { projects, services } from '@/lib/i18n'
+export default function sitemap(): MetadataRoute.Sitemap { const base=baseUrl(); const staticPaths=['/','/services','/projects','/courses','/contact','/privacy']; const servicePaths=services.filter(s=>['technical-consulting','web-development','automation','ai-workflows'].includes(s.slug)).map(s=>`/services/${s.slug}`); const projectPaths=projects.map(p=>`/projects/${p.slug}`); return [...staticPaths,...servicePaths,...projectPaths].flatMap(path=>[{url:`${base}${path}`,lastModified:new Date(),changeFrequency:'monthly' as const,priority:path==='/'?1:.7},{url:`${base}/ar${path==='/'?'':path}`,lastModified:new Date(),changeFrequency:'monthly' as const,priority:path==='/'?.9:.6}]) }

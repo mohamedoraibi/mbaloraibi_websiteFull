@@ -1,0 +1,3 @@
+import { z } from 'zod'
+export const contactSchema = z.object({ name:z.string().min(2).max(120), email:z.string().email(), phone:z.string().max(40).optional().or(z.literal('')), service:z.string().min(2), budget:z.string().optional().or(z.literal('')), message:z.string().min(10).max(2000), website:z.string().max(0).optional(), language:z.enum(['en','ar']).default('en') })
+export const courseInterestSchema = z.object({ name:z.string().min(2).max(120), email:z.string().email(), course:z.string().min(2), message:z.string().max(1200).optional().or(z.literal('')), website:z.string().max(0).optional(), language:z.enum(['en','ar']).default('en') })

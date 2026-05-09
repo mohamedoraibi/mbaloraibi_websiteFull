@@ -1,0 +1,3 @@
+import type { Metadata } from 'next'
+export const metadata: Metadata = { title:'Admin | Mohammed Al Oraibi', robots:{ index:false, follow:false } }
+export default function AdminPage(){ return <main className="section"><div className="container card p-8"><p className="eyebrow">Private admin</p><h1 className="mt-3 text-4xl font-black">Payload CMS foundation</h1><p className="mt-4 leading-8 muted">Payload CMS collections and globals are included in this repository. Configure DATABASE_URI and PAYLOAD_SECRET, then connect the Payload admin route during deployment hardening. This placeholder is intentionally noindex and prevents exposing unfinished admin setup without credentials.</p></div></main> }
